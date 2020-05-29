@@ -1,37 +1,45 @@
-<%= form_with(model: meeting, local: true) do |form| %>
+<div class="p-10 bg-white border border-grey-200 rounded">
+<%= form_with(model: meeting, local: true, class: "meeting-form") do |form| %>
   <% if meeting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
 
       <ul>
-        <% meeting.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <% meeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <h3 class="mb-4 text-2xl">Reservation Information</h3>
+
+  <div class="mb-6">
+    <%= form.label :service, class: "label" %>
+    <%= form.text_field :name, class: "input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :mobile, class: "label" %>
+    <%= form.text_field :mobile, class: "input" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :start_time, class: "label" %>
+    <div class="flex items-center justify-between max-w-md">
+      <%= form.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-3" } %>
+    </div>
   </div>
 
   <div class="field">
-    <%= form.label :mobile %>
-    <%= form.text_field :mobile %>
+    <%= form.label :end_time, class: "label" %>
+    <div class="flex items-center justify-between max-w-md">
+      <%= form.datetime_select :end_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
-  </div>
+  <br/><br/>
+  <%= form.submit  class: "btn btn-primary text-base py-3 px-5" %>
 
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_184539) do
+ActiveRecord::Schema.define(version: 2020_05_29_181128) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -49,5 +49,6 @@ ActiveRecord::Schema.define(version: 2020_05_28_184539) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "meetings"
   add_foreign_key "meetings", "users"
 end
