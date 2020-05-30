@@ -2,6 +2,7 @@ class MeetingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
   before_action :must_be_admin, only: [:active_sessions]
+
   # GET /meetings
   # GET /meetings.json
   def index
@@ -15,6 +16,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
+    @comment = Comment.new
   end
 
   # GET /meetings/new
@@ -29,8 +31,10 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
+
     @meeting = Meeting.new(meeting_params)
     @meeting.user_id = current_user.id
+
 
     respond_to do |format|
       if @meeting.save
@@ -41,6 +45,7 @@ class MeetingsController < ApplicationController
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /meetings/1
@@ -67,14 +72,24 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def active_sessions
+    @active_sessions = Meeting.where("end_time > ?", Time.now)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_meeting
       @meeting = Meeting.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:name, :mobile, :start_time, :end_time, :user_id)
+      params.require(:meeting).permit(:name, :start_time, :end_time, :user_id)
+    end
+
+    def must_be_admin
+      unless current_user.try(:admin?)
+        redirect_to meetings_path, alert: "You don't have access to this page"
+      end
     end
 end

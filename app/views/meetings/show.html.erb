@@ -3,7 +3,7 @@
 
     <div class="flex flex-wrap justify-between items-center mb-5">
       <p class="text-3xl px-3 text-indigo-500"><%= @meeting.name %></p>
-      <%= link_to "Cancel Reservation", meeting_path(@meeting), method: :delete, data: { confirm: "Are you sure you want to cancel? "}, class: "btn btn-destroy" if admin? %>
+      <%= link_to "Finish Service", meeting_path(@meeting), method: :delete, data: { confirm: "Are you sure you want to cancel? "}, class: "btn btn-destroy" if admin? %>
     </div>
 
     <div class="border p-6 bg-grey-400 mb-5 rounded flex items-center justify-between">
