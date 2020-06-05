@@ -1,3 +1,5 @@
+<% if user.meetings.any? %>
+
 <div class="flex flex-wrap items-center mb-5 text-indigo-700">
   <div class="flex-1 flex justify-between items-center">
     <div><h3 class="text-lg"><%= user.name %></h3>(<%= user.username %>)</div>
@@ -13,4 +15,6 @@
         <%= link_to meeting.name, meeting, class: "link my-2 inline-block" %><br/>
     <% end %>
   </div>
+<% end %>
+
 <% end %>

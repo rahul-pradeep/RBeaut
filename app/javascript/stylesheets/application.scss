@@ -26,6 +26,14 @@
     }
 }
 
+.btn-menu {
+  @apply bg-indigo-500 text-indigo-100 shadow;
+
+  &:hover, &:focus {
+    @apply bg-indigo-700 text-indigo-200;
+  }
+}
+
 .btn-destroy {
     @apply bg-white border border-red-300 text-red-500;
   
