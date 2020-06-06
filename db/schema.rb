@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_05_29_181128) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -49,6 +52,5 @@ ActiveRecord::Schema.define(version: 2020_05_29_181128) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "meetings"
   add_foreign_key "meetings", "users"
 end
